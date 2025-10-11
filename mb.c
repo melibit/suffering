@@ -1,9 +1,8 @@
 #include "io.h"
 
-volatile unsigned int __attribute__((aligned(16))) mbox[36];
+// The buffer must be 16-byte aligned as only the upper 28 bits of the address can be passed via the mailbox
 
-void mmio_write(long reg, unsigned int val) { *(volatile unsigned int *)reg = val; }
-unsigned int mmio_read(long reg) { return *(volatile unsigned int *)reg; }
+volatile unsigned int __attribute__((aligned(16))) mbox[36];
 
 enum {
     VIDEOCORE_MBOX = (PERIPHERAL_BASE + 0x0000B880),
@@ -20,16 +19,21 @@ enum {
 
 unsigned int mbox_call(unsigned char ch)
 {
+    // 28-bit address (MSB) and 4-bit value (LSB)
     unsigned int r = ((unsigned int)((long) &mbox) &~ 0xF) | (ch & 0xF);
 
+    // Wait until we can write
     while (mmio_read(MBOX_STATUS) & MBOX_FULL);
     
+    // Write the address of our buffer to the mailbox with the channel appended
     mmio_write(MBOX_WRITE, r);
 
     while (1) {
+        // Is there a reply?
         while (mmio_read(MBOX_STATUS) & MBOX_EMPTY);
 
-        if (r == mmio_read(MBOX_READ)) return mbox[1]==MBOX_RESPONSE;
+        // Is it a reply to our message?
+        if (r == mmio_read(MBOX_READ)) return mbox[1]==MBOX_RESPONSE; // Is it successful?
            
     }
     return 0;
