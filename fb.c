@@ -15,14 +15,14 @@ void fb_init()
     mbox[2] = MBOX_TAG_SETPHYWH; // Tag identifier
     mbox[3] = 8; // Value size in bytes
     mbox[4] = 0;
-    mbox[5] = 3840; // Value(width)
-    mbox[6] = 2160; // Value(height)
+    mbox[5] = 1920; // Value(width)
+    mbox[6] = 1080; // Value(height)
 
     mbox[7] = MBOX_TAG_SETVIRTWH;
     mbox[8] = 8;
     mbox[9] = 8;
-    mbox[10] = 3840;
-    mbox[11] = 2160;
+    mbox[10] = 1920;
+    mbox[11] = 1080;
 
     mbox[12] = MBOX_TAG_SETVIRTOFF;
     mbox[13] = 8;
