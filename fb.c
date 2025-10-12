@@ -65,37 +65,31 @@ void fb_init()
     }
 }
 
-void drawCircle(int x0, int y0, int radius, unsigned char attr, int fill)
+void drawCircle(int x0, int y0, int radius, unsigned char attr)
 {
     int x = radius;
     int y = 0;
     int err = 0;
  
     while (x >= y) {
-	if (fill) {
-	   drawLine(x0 - y, y0 + x, x0 + y, y0 + x, (attr & 0xf0) >> 4);
-	   drawLine(x0 - x, y0 + y, x0 + x, y0 + y, (attr & 0xf0) >> 4);
-	   drawLine(x0 - x, y0 - y, x0 + x, y0 - y, (attr & 0xf0) >> 4);
-	   drawLine(x0 - y, y0 - x, x0 + y, y0 - x, (attr & 0xf0) >> 4);
-	}
-	drawPixel(x0 - y, y0 + x, attr);
-	drawPixel(x0 + y, y0 + x, attr);
-	drawPixel(x0 - x, y0 + y, attr);
-        drawPixel(x0 + x, y0 + y, attr);
-	drawPixel(x0 - x, y0 - y, attr);
-	drawPixel(x0 + x, y0 - y, attr);
-	drawPixel(x0 - y, y0 - x, attr);
-	drawPixel(x0 + y, y0 - x, attr);
+	    drawPixel(x0 - y, y0 + x, attr);
+	    drawPixel(x0 + y, y0 + x, attr);
+	    drawPixel(x0 - x, y0 + y, attr);
+      drawPixel(x0 + x, y0 + y, attr);
+	    drawPixel(x0 - x, y0 - y, attr);
+	    drawPixel(x0 + x, y0 - y, attr);
+	    drawPixel(x0 - y, y0 - x, attr);
+	    drawPixel(x0 + y, y0 - x, attr);
 
-	if (err <= 0) {
-	    y += 1;
-	    err += 2*y + 1;
-	}
+	    if (err <= 0) {
+	      y += 1;
+	      err += 2*y + 1;
+  	  }
  
-	if (err > 0) {
-	    x -= 1;
-	    err -= 2*x + 1;
-	}
+	    if (err > 0) {
+	      x -= 1;
+	      err -= 2*x + 1;
+	    }
     }
 }
 

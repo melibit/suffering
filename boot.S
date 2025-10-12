@@ -61,7 +61,22 @@ test_pattern:
     mov   x3, #400 
     mov   x4, #7 
     bl    drawLine
+    
+    mov   x0, #960
+    mov   x1, #540 
+    mov   x2, #250
+    mov   x3, #4 
+    mov   x4, #0
+    bl    drawCircle  
+    
 
+    mov   x0, #960
+    mov   x1, #540 
+    mov   x2, #150
+    mov   x3, #4 
+    mov   x4, #0
+    bl    drawCircle  
+    
     mov   x0, #350
     mov   x1, #650 
     mov   x2, #600 
