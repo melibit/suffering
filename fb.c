@@ -6,6 +6,7 @@ unsigned int width, height, pitch, isrgb;
 unsigned char *fb;
 
 extern void drawPixel(int x, int y, unsigned char attr); 
+extern void drawLine(int x1, int y1, int x2, int y2, unsigned char attr); 
 
 void fb_init()
 {
@@ -61,29 +62,6 @@ void fb_init()
         pitch = mbox[33];       // Number of bytes per line
         isrgb = mbox[24];       // Pixel order
         fb = (unsigned char *)((long)mbox[28]);
-    }
-}
-
-void drawLine(int x1, int y1, int x2, int y2, unsigned char attr)  
-{  
-    int dx, dy, p, x, y;
-
-    dx = x2-x1;
-    dy = y2-y1;
-    x = x1;
-    y = y1;
-    p = 2*dy-dx;
-
-    while (x<x2) {
-       if (p >= 0) {
-          drawPixel(x,y,attr);
-          y++;
-          p = p+2*dy-2*dx;
-       } else {
-          drawPixel(x,y,attr);
-          p = p+2*dy;
-       }
-       x++;
     }
 }
 

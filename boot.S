@@ -55,6 +55,12 @@ test_pattern:
     mov   x3, #15
     bl    drawString
     
+    mov   x0, #100
+    mov   x1, #150 
+    mov   x2, #300 
+    mov   x3, #400 
+    mov   x4, #7 
+    bl    drawLine
 
     mov   x0, #350
     mov   x1, #650 

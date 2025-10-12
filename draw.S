@@ -25,14 +25,14 @@ drawPixel:
 
 .global drawRect
 drawRect:
-  stp x29, x30, [sp, #-16]! 
-  mov x29, sp 
+  stp   x29, x30, [sp, #-16]! 
+  mov   x29, sp 
 
   mov   w20, w0    // x1
   mov   w21, w1    // y1
   mov   w22, w2    // x2
   mov   w23, w3    // y2
-  mov   w24, w5
+  mov   w24, w5    // fill
 
   mov   w2, w4    // attr
 
@@ -70,5 +70,52 @@ drawRect_x_end:
   b drawRect_y
 
 drawRect_end:
-  ldp x29, x30, [sp], #16
+  ldp   x29, x30, [sp], #16
   ret
+
+.global drawLine 
+drawLine:
+  stp   x29, x30, [sp, #-16]! 
+  mov   x29, sp 
+
+  mov   w20, w0    // x1
+  mov   w21, w1    // y1
+  mov   w22, w2    // x2
+  mov   w23, w3    // y2
+  
+  mov   w2, w4 
+
+  sub   w24, w22, w20 // dx 
+  sub   w25, w23, w21 // dy 
+  
+  add   w26, w25, w25 // p = 2dy...
+  sub   w26, w26, w24 //     -dx 
+
+drawLine_loop: 
+  cmp   w0, w22 
+  b.gt  drawLine_end
+  
+  bl    drawPixel 
+  
+  add   w0, w0, #1 
+
+  cmp   w26, #0 
+  b.ge  drawLine_p  
+  
+  add   w26, w26, w25 
+  add   w26, w26, w25 
+
+  b     drawLine_loop 
+drawLine_p:
+  add   w1, w1, #1 
+  add   w26, w26, w25 
+  add   w26, w26, w25 
+  sub   w26, w26, w24 
+  sub   w26, w26, w24 
+  
+  b     drawLine_loop 
+
+drawLine_end:
+  ldp   x29, x30, [sp], #16
+  ret
+  
