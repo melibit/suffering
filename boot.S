@@ -8,12 +8,13 @@ _start:
 
     // Halt secondary cores (for now?)
     and   x1, x1, #3
-    cbz   x1, 2f 
+    cbz   x1, init
     
     // HALT 
-1:  wfe 
-    b     1b 
-2:  // PID == 1 (boot core) 
+halt:  
+    wfe 
+    b     halt
+init:  // PID == 1 (boot core) 
 
     // Setup stack 
     ldr   x1, =_start 
@@ -24,12 +25,14 @@ _start:
     ldr   w2, =__bss_size 
 
     // Loop to clear BSS 
-3:  cbz   w2, 4f 
+_bss:  
+    cbz   w2, test_pattern
     str   xzr, [x1], #8 
     sub   w2, w2, #1 
-    cbnz  w2, 3b
+    cbnz  w2, _bss
     
-4:  bl    fb_init
+test_pattern:  
+    bl    fb_init
 
     mov   x0, #150
     mov   x1, #150 
@@ -46,7 +49,7 @@ _start:
     bl    drawString
   
     //HALT 
-    b     1b 
+    b     halt
 
 .data 
     helloString:
