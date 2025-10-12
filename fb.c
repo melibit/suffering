@@ -64,21 +64,6 @@ void fb_init()
     }
 }
 
-void drawRect(int x1, int y1, int x2, int y2, unsigned char attr, int fill)
-{
-    int y=y1;
-
-    while (y <= y2) {
-       int x=x1;
-       while (x <= x2) {
-	  if ((x == x1 || x == x2) || (y == y1 || y == y2)) drawPixel(x, y, attr);
-	  else if (fill) drawPixel(x, y, (attr & 0xf0) >> 4);
-          x++;
-       }
-       y++;
-    }
-}
-
 void drawLine(int x1, int y1, int x2, int y2, unsigned char attr)  
 {  
     int dx, dy, p, x, y;

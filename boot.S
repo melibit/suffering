@@ -33,24 +33,42 @@ _bss:
     
 test_pattern:  
     bl    fb_init
+    
+    mov   x0, #20
+    mov   x1, #20
+    ldr   x2, =helloString 
+    mov   x3, #15
+    bl    drawString
 
     mov   x0, #150
     mov   x1, #150 
     mov   x2, #400 
     mov   x3, #400 
     mov   x4, #7 
+    mov   x5, #0
     bl    drawRect
     
     
-    mov   x0, #100 
-    mov   x1, #100 
-    ldr   x2, =helloString 
+    mov   x0, #100
+    mov   x1, #100
+    ldr   x2, =shortString 
     mov   x3, #15
     bl    drawString
-  
+    
+
+    mov   x0, #350
+    mov   x1, #650 
+    mov   x2, #600 
+    mov   x3, #800 
+    mov   x4, #4
+    mov   x5, #1
+    bl    drawRect
+     
     //HALT 
     b     halt
 
 .data 
     helloString:
       .string "Hello, Quab Squab!"
+    shortString:
+      .string "Gabriel, is short lmao"
