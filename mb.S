@@ -29,10 +29,10 @@ mbox_call:
 	movk	w20, PERIPHERAL_BASE, lsl #16
 
 //Wait for mbox to be writeable 
-mbox_full:                            
+mbox_call_full:                            
 	mov   w0, w20 
   bl	mmio_read
-	tbnz	w0, #31, mbox_full
+	tbnz	w0, #31, mbox_call_full
 
 // Write Request 
 	mov   w0, MBOX_WRITE 
@@ -41,10 +41,10 @@ mbox_full:
 	bl	  mmio_write
 
 // Wait for mailbox to be readable 
-mbox_empty:                             
+mbox_call_empty:                             
 	mov   w0, w20
   bl	  mmio_read
-	tbnz	w0, #30, mbox_empty
+	tbnz	w0, #30, mbox_call_empty
 
   // Read mailbox 
 	mov	  w0, MBOX_READ 
@@ -53,7 +53,7 @@ mbox_empty:
   
   // Check if reply is to our message 
 	cmp	  w19, w0
-	b.ne	mbox_empty 
+	b.ne	mbox_call_empty 
 	
   // Get response code 
   adrp	x8, mbox+4
