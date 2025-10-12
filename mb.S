@@ -8,8 +8,7 @@
 
 .global mbox_call 
   
-mbox_call:                              // @mbox_call
-// %bb.0:
+mbox_call:                            
   // Push Stack Frame 
   stp	  x29, x30, [sp, #-32]!         
 	stp	  x20, x19, [sp, #16]
@@ -65,9 +64,9 @@ mbox_empty:
 	cmp	  w8, w9
 	cset	w0, eq
 
-  //Load Stack Frame and return
-	ldp	  x20, x19, [sp, #16]             // 16-byte Folded Reload
-	ldp	  x29, x30, [sp], #32             // 16-byte Folded Reload
+  // Load Stack Frame and return
+	ldp	  x20, x19, [sp, #16]             
+	ldp	  x29, x30, [sp], #32           
 	ret
 
 .bss

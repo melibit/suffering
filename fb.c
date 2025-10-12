@@ -5,6 +5,8 @@
 unsigned int width, height, pitch, isrgb;
 unsigned char *fb;
 
+extern void drawPixel(int x, int y, unsigned char attr); 
+
 void fb_init()
 {
     mbox[0] = 35*4; // Length of message in bytes
@@ -60,12 +62,6 @@ void fb_init()
         isrgb = mbox[24];       // Pixel order
         fb = (unsigned char *)((long)mbox[28]);
     }
-}
-
-void drawPixel(int x, int y, unsigned char attr)
-{
-    int offs = (y * pitch) + (x * 4);
-    *((unsigned int*)(fb + offs)) = vgapal[attr & 0x0f];
 }
 
 void drawRect(int x1, int y1, int x2, int y2, unsigned char attr, int fill)
