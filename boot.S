@@ -29,8 +29,25 @@ _start:
     sub   w2, w2, #1 
     cbnz  w2, 3b
     
-    // C time baybeeee 
-4:  bl    main 
+4:  bl    fb_init
+
+    mov   x0, #150
+    mov   x1, #150 
+    mov   x2, #400 
+    mov   x3, #400 
+    mov   x4, #7 
+    bl    drawRect
+    
+    
+    mov   x0, #100 
+    mov   x1, #100 
+    ldr   x2, =helloString 
+    mov   x3, #15
+    bl    drawString
+  
+    //HALT 
     b     1b 
 
-
+.data 
+    helloString:
+      .string "Hello, Quab Squab!"
