@@ -99,7 +99,8 @@ test_pattern:
     mov   x3, #4 
     mov   x4, #0
     bl    drawCircle  
-    
+
+main_loop:
     mov   x0, #350
     mov   x1, #650 
     mov   x2, #600 
@@ -107,9 +108,22 @@ test_pattern:
     mov   x4, #4
     mov   x5, #1
     bl    drawRect
-     
-    //HALT 
-    b     halt
+    
+    mov   x0, #500
+    bl    wait_msec 
+    
+    mov   x0, #350
+    mov   x1, #650 
+    mov   x2, #600 
+    mov   x3, #800 
+    mov   x4, #5
+    mov   x5, #1
+    bl    drawRect
+    
+    mov   x0, #500
+    bl    wait_msec 
+    
+    b     main_loop
 
 .data 
     helloString:
