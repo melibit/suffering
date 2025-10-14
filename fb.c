@@ -65,34 +65,6 @@ void fb_init()
     }
 }
 
-void drawCircle(int x0, int y0, int radius, unsigned char attr)
-{
-    int x = radius;
-    int y = 0;
-    int err = 0;
- 
-    while (x >= y) {
-	    drawPixel(x0 - y, y0 + x, attr);
-	    drawPixel(x0 + y, y0 + x, attr);
-	    drawPixel(x0 - x, y0 + y, attr);
-      drawPixel(x0 + x, y0 + y, attr);
-	    drawPixel(x0 - x, y0 - y, attr);
-	    drawPixel(x0 + x, y0 - y, attr);
-	    drawPixel(x0 - y, y0 - x, attr);
-	    drawPixel(x0 + y, y0 - x, attr);
-
-	    if (err <= 0) {
-	      y += 1;
-	      err += 2*y + 1;
-  	  }
- 
-	    if (err > 0) {
-	      x -= 1;
-	      err -= 2*x + 1;
-	    }
-    }
-}
-
 void drawChar(unsigned char ch, int x, int y, unsigned char attr)
 {
     unsigned char *glyph = (unsigned char *)&font + (ch < FONT_NUMGLYPHS ? ch : 0) * FONT_BPG;

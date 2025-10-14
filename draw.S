@@ -118,4 +118,77 @@ drawLine_p:
 drawLine_end:
   ldp   x29, x30, [sp], #16
   ret
+
+.global drawCircle 
+drawCircle: 
+  stp   x29, x30, [sp, #-16]! 
+  mov   x29, sp 
   
+  mov   w20, w0   // a (x0)  
+  mov   w21, w1   // b (y0)
+ 
+  mov   w22, w2   // x = radius 
+  eor   w23, w23, w23 // y = 0 
+
+  eor   w24, w24, w24 // err = 0 
+  
+  mov   w2, w3 //attr 
+
+drawCircle_loop:
+  cmp   w22, w23 
+  b.lt  drawCircle_end
+
+drawCircle_draw:
+  // a - y, b + x 
+  sub   w0, w20, w23 
+  add   w1, w21, w22 
+  bl    drawPixel 
+  // a + y, b + x 
+  add   w0, w20, w23 
+  add   w1, w21, w22 
+  bl    drawPixel 
+  // a - x, b + y 
+  sub   w0, w20, w22
+  add   w1, w21, w23 
+  bl    drawPixel 
+  // a + x, b + y
+  add   w0, w20, w22 
+  add   w1, w21, w23 
+  bl    drawPixel 
+  
+  // a - y, b - x 
+  sub   w0, w20, w23 
+  sub   w1, w21, w22 
+  bl    drawPixel 
+  // a + y, b - x 
+  add   w0, w20, w23 
+  sub   w1, w21, w22 
+  bl    drawPixel 
+  // a - x, b - y 
+  sub   w0, w20, w22
+  sub   w1, w21, w23 
+  bl    drawPixel 
+  // a + x, b - y
+  add   w0, w20, w22 
+  sub   w1, w21, w23 
+  bl    drawPixel 
+
+  eor   w25, w25, w25 
+  cmp   w24, w25 
+  b.lt  drawCircle_err 
+  sub   w22, w22, #1  
+  sub   w24, w24, w22 
+  sub   w24, w24, w22  
+  sub   w24, w24, #1 
+  
+  b     drawCircle_loop 
+drawCircle_err: 
+  add   w23, w23, #1 
+  add   w24, w24, w23 
+  add   w24, w24, w23  
+  add   w24, w24, #1 
+  b     drawCircle_loop 
+
+drawCircle_end:
+  ldp   x29, x30, [sp], #16
+  ret  
