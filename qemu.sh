@@ -1,3 +1,3 @@
 make
-qemu-system-aarch64 -machine raspi4b -kernel kernel8.img
+qemu-system-aarch64 -machine raspi4b -kernel kernel8.img -full-screen
 make clean
