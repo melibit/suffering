@@ -20,8 +20,8 @@ _start:
     movk  x0, LOCAL_CONTROL, lsl #16 
     str   wzr, [x0]
 
-    // Set Prescaler to 2048??? 
-    mov   w1, 0x0800
+    // Set Prescaler to 1 
+    mov   w1, 0x0000
     movk  w1, 0x8000, lsl #16 
     str   w1, [x0, #8] 
 
@@ -30,7 +30,6 @@ _start:
     movk    x1, OSC_FREQH, lsl #16 
     msr     cntfrq_el0, x0
     msr     cntvoff_el2, xzr
-    
     // HALT 
 halt:  
     wfe 
@@ -60,6 +59,9 @@ test_pattern:
     ldr   x2, =helloString 
     mov   x3, #15
     bl    drawString
+    
+    mov   x0, #1000
+    bl    wait_msec
 
     mov   x0, #150
     mov   x1, #150 
