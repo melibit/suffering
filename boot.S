@@ -2,6 +2,11 @@
 
 .global _start 
 
+.equ LOCAL_CONTROL, 65408 
+// 54MHz 
+.equ OSC_FREQL, 63872
+.equ OSC_FREQH, 823 
+
 _start: 
     // Find PID 
     mrs   x1, mpidr_el1 
@@ -9,6 +14,22 @@ _start:
     // Halt secondary cores (for now?)
     and   x1, x1, #3
     cbz   x1, init
+    
+    // Initalise Clock 
+    mov   x0, 0
+    movk  x0, LOCAL_CONTROL, lsl #16 
+    str   wzr, [x0]
+
+    // Set Prescaler to 2048??? 
+    mov   w1, 0x0800
+    movk  w1, 0x8000, lsl #16 
+    str   w1, [x0, #8] 
+
+    // Start Clock??? 
+    mov     x0, OSC_FREQL 
+    movk    x1, OSC_FREQH, lsl #16 
+    msr     cntfrq_el0, x0
+    msr     cntvoff_el2, xzr
     
     // HALT 
 halt:  
