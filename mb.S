@@ -1,10 +1,10 @@
 .section ".text.mailbox"
 
-.equ MBOX_STATUS, 47256
-.equ MBOX_WRITE,  47264
-.equ MBOX_READ,   47232
-.equ MAILBOX_RESPONSE, -2147483648    
-.equ PERIPHERAL_BASE, 65024
+.equ MBOX_STATUS, 0xB898
+.equ MBOX_WRITE,  0xB8A0
+.equ MBOX_READ,   0xB880 
+.equ MAILBOX_RESPONSE, 0x80000000    
+.equ PERIPHERAL_BASE, 0xFE00
 
 .global mbox_call 
   

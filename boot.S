@@ -2,10 +2,10 @@
 
 .global _start 
 
-.equ LOCAL_CONTROL, 65408 
+.equ LOCAL_CONTROL, 0xFF80 
 // 54MHz 
-.equ OSC_FREQL, 63872
-.equ OSC_FREQH, 823 
+.equ OSC_FREQL, 0xF980
+.equ OSC_FREQH, 0x0337
 
 _start: 
     // Find PID 
