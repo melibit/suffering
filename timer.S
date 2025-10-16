@@ -1,7 +1,7 @@
 .section ".text.timer"
 
-.equ CPFL, 0x000F
-.equ CPFH, 0xDE80
+.equ CPFH, 0x000F
+.equ CPFL, 0xDE80
 
 .global wait_msec 
 wait_msec: 
@@ -39,7 +39,7 @@ end_frame:
 end_frame_loop:
     mrs   x1, cntpct_el0 
     cmp   x0, x1 
-    b.lt  end_frame_loop
+    b.gt  end_frame_loop
     ret 
 
 .global get_framecount
