@@ -104,6 +104,14 @@ main_loop:
 
     bl    start_frame
     
+    bl    get_framecount
+    mov   x2, x0 
+
+    mov   x0, #140
+    mov   x1, #140
+    mov   x3, #7
+    bl    drawInt
+    
     mov   x0, #350
     mov   x1, #650 
     mov   x2, #600 
@@ -111,7 +119,7 @@ main_loop:
     mov   x4, #4
     mov   x5, #1
     bl    drawRect
-    
+     
     bl    end_frame
     bl    start_frame 
     
