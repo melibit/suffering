@@ -101,6 +101,9 @@ test_pattern:
     bl    drawCircle  
 
 main_loop:
+
+    bl    start_frame
+    
     mov   x0, #350
     mov   x1, #650 
     mov   x2, #600 
@@ -109,8 +112,8 @@ main_loop:
     mov   x5, #1
     bl    drawRect
     
-    mov   x0, #500
-    bl    wait_msec 
+    bl    end_frame
+    bl    start_frame 
     
     mov   x0, #350
     mov   x1, #650 
@@ -119,9 +122,8 @@ main_loop:
     mov   x4, #5
     mov   x5, #1
     bl    drawRect
-    
-    mov   x0, #500
-    bl    wait_msec 
+
+    bl    end_frame  
     
     b     main_loop
 
