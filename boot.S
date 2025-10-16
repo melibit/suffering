@@ -52,6 +52,10 @@ _bss:
     cbnz  w2, _bss
     
 test_pattern:  
+    bl    uart_init 
+    ldr   x0, =helloString 
+    bl    uart_writeText
+  
     bl    fb_init
     
     mov   x0, #20
