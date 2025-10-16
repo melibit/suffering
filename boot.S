@@ -116,27 +116,19 @@ main_loop:
     mov   x3, #7
     bl    drawInt
     
+    bl    get_framecount 
+    mov   x1, #16
+    udiv  x2, x0, x1
+    msub  x4, x2, x1, x0 
+    
     mov   x0, #350
     mov   x1, #650 
     mov   x2, #600 
     mov   x3, #800 
-    mov   x4, #4
     mov   x5, #1
     bl    drawRect
      
     bl    end_frame
-    bl    start_frame 
-    
-    mov   x0, #350
-    mov   x1, #650 
-    mov   x2, #600 
-    mov   x3, #800 
-    mov   x4, #5
-    mov   x5, #1
-    bl    drawRect
-
-    bl    end_frame  
-    
     b     main_loop
 
 .data 
