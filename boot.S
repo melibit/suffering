@@ -30,6 +30,7 @@ _start:
     movk    x1, OSC_FREQH, lsl #16 
     msr     cntfrq_el0, x0
     msr     cntvoff_el2, xzr
+
     // HALT 
 halt:  
     wfe 
@@ -103,7 +104,9 @@ test_pattern:
     mov   x3, #4 
     mov   x4, #0
     bl    drawCircle  
+    
 
+    bl    reset_framecount
 main_loop:
 
     bl    start_frame
@@ -115,6 +118,9 @@ main_loop:
     mov   x1, #140
     mov   x3, #7
     bl    drawInt
+
+    bl    get_framecount
+    bl    uart_writeInt
     
     bl    get_framecount 
     mov   x1, #16

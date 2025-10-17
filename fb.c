@@ -95,7 +95,7 @@ void drawString(int x, int y, char *s, unsigned char attr)
     }
 }
 
-void drawInt(int x, int y, int a, unsigned char attr) {
+void drawInt(int x, int y, unsigned int a, unsigned char attr) {
     while (a > 0) {  
         drawChar((a % 10) + '0', x, y, attr);
         x -= FONT_WIDTH;

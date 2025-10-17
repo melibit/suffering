@@ -48,7 +48,14 @@ get_framecount:
     add   x1, x1, :lo12:framecount
     ldr   x0, [x1]
     ret 
-    
+
+.global reset_framecount
+reset_framecount: 
+    adrp  x0, framecount 
+    add   x0, x0, :lo12:framecount
+    eor   x1, x1, x1
+    str   x1, [x0]
+    ret 
 
 .bss 
   .global framecount 

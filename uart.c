@@ -1,5 +1,7 @@
 #include "io.h"
 
+extern void drawInt(int a, int b, unsigned int c, int d);
+
 // GPIO
 
 enum {
@@ -91,4 +93,13 @@ void uart_writeText(char *buffer) {
        if (*buffer == '\n') uart_writeByteBlockingActual('\r');
        uart_writeByteBlockingActual(*buffer++);
     }
+}
+
+void uart_writeInt(unsigned int a) {
+  drawInt(30, 30, a, 0x04);
+  while (a > 0) { 
+      uart_writeByteBlockingActual((a % 10) + '0');
+      a = a/10;
+  }
+  uart_writeText("\n");
 }
